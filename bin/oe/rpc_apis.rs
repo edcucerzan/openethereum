@@ -68,6 +68,8 @@ pub enum Api {
     ParitySet,
     /// SecretStore (UNSAFE: arbitrary hash signing)
     SecretStore,
+	/// Evm (Unsafe)
+	Evm,
     /// Geth-compatible (best-effort) debug API (Potentially UNSAFE)
     /// NOTE We don't aim to support all methods, only the ones that are useful.
     Debug,
@@ -82,6 +84,7 @@ impl FromStr for Api {
         match s {
             "debug" => Ok(Debug),
             "eth" => Ok(Eth),
+			"evm" => Ok(Evm),
             "net" => Ok(Net),
             "parity" => Ok(Parity),
             "parity_accounts" => Ok(ParityAccounts),
@@ -162,6 +165,7 @@ fn to_modules(apis: &HashSet<Api>) -> BTreeMap<String, String> {
         let (name, version) = match *api {
             Api::Debug => ("debug", "1.0"),
             Api::Eth => ("eth", "1.0"),
+			Api::Evm => ("evm", "1.0"),
             Api::EthPubSub => ("pubsub", "1.0"),
             Api::Net => ("net", "1.0"),
             Api::Parity => ("parity", "1.0"),
@@ -303,6 +307,9 @@ impl FullDependencies {
                         );
                     }
                 }
+				Api::Evm => {
+					handler.extend_with(EvmClient::new(&self.miner).to_delegate());
+				}
                 Api::EthPubSub => {
                     if !for_generic_pubsub {
                         let client =
@@ -451,6 +458,7 @@ impl ApiSet {
             Api::Web3,
             Api::Net,
             Api::Eth,
+			Api::Evm,
             Api::EthPubSub,
             Api::Parity,
             Api::Rpc,
@@ -485,6 +493,7 @@ impl ApiSet {
             }
             ApiSet::PubSub => [
                 Api::Eth,
+				Api::Evm,
                 Api::Parity,
                 Api::ParityAccounts,
                 Api::ParitySet,
@@ -507,6 +516,7 @@ mod test {
         assert_eq!(Api::Web3, "web3".parse().unwrap());
         assert_eq!(Api::Net, "net".parse().unwrap());
         assert_eq!(Api::Eth, "eth".parse().unwrap());
+        assert_eq!(Api::Evm, "evm".parse().unwrap());
         assert_eq!(Api::EthPubSub, "pubsub".parse().unwrap());
         assert_eq!(Api::Personal, "personal".parse().unwrap());
         assert_eq!(Api::Signer, "signer".parse().unwrap());

@@ -470,6 +470,9 @@ pub trait Engine<M: Machine>: Sync + Send {
     /// Register a component which signs consensus messages.
     fn set_signer(&self, _signer: Option<Box<dyn EngineSigner>>) {}
 
+	/// Whether this engine allows block time stamp increase
+	fn is_time_increasable(&self) -> bool { false }
+
     /// Returns whether the current node is a validator and
     /// actually may seal a block if AuRa engine is used.
     ///

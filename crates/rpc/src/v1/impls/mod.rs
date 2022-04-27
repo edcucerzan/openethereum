@@ -18,6 +18,7 @@
 
 mod debug;
 mod eth;
+mod evm;
 mod eth_filter;
 mod eth_pubsub;
 mod net;
@@ -48,6 +49,7 @@ pub use self::secretstore::SecretStoreClient;
 pub use self::{
     debug::DebugClient,
     eth::{EthClient, EthClientOptions},
+	evm::EvmClient,
     eth_filter::EthFilterClient,
     eth_pubsub::EthPubSubClient,
     net::NetClient,

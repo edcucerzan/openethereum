@@ -47,7 +47,7 @@ pub use self::{
     impls::*,
     metadata::Metadata,
     traits::{
-        Debug, Eth, EthFilter, EthPubSub, EthSigning, Net, Parity, ParityAccounts,
+        Debug, Eth, Evm, EthFilter, EthPubSub, EthSigning, Net, Parity, ParityAccounts,
         ParityAccountsInfo, ParitySet, ParitySetAccounts, ParitySigning, Personal, PubSub, Rpc,
         SecretStore, Signer, Traces, Web3,
     },

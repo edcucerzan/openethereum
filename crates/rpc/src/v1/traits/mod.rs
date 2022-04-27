@@ -18,6 +18,7 @@
 
 pub mod debug;
 pub mod eth;
+pub mod evm;
 pub mod eth_pubsub;
 pub mod eth_signing;
 pub mod net;
@@ -36,6 +37,7 @@ pub mod web3;
 pub use self::{
     debug::Debug,
     eth::{Eth, EthFilter},
+	evm::Evm,
     eth_pubsub::EthPubSub,
     eth_signing::EthSigning,
     net::Net,

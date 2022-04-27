@@ -122,6 +122,8 @@ impl<M: Machine> Engine<M> for InstantSeal<M> {
     fn fork_choice(&self, new: &ExtendedHeader, current: &ExtendedHeader) -> super::ForkChoice {
         super::total_difficulty_fork_choice(new, current)
     }
+
+	fn is_time_increasable(&self) -> bool { true }
 }
 
 #[cfg(test)]
